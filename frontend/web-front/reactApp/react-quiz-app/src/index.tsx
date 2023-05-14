@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from "axios";
+
+const endpoint = "http://localhost:8000/api/quiz/"
+const url = axios.get(endpoint)
+  .then((response)=>console.log(response))
+  .catch((error)=>console.log(error))
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
