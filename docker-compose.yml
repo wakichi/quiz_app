@@ -22,14 +22,17 @@ services:
     expose: 
       - 3306
   frontend:
-    build:
-      context: ./frontend/web-front/reactApp
-      dockerfile: Dockerfile
+    image: node:alpine
     volumes: 
-      - ./frontend/web-front/reactApp:/usr/src/app
-    # command: sh -c "cd react-quiz-app && yarn start"
+      - ./frontend/web-front/:/usr/src/app
+    working_dir: /usr/src/app
+    command: 
+      - sh -c "npm start"
     # command: sh -c "ls"
     ports:
       - "3000:3000"
     stdin_open: true
     tty: true
+    depends_on:
+      - backend
+      - db

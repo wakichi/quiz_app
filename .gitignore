@@ -4,5 +4,8 @@ __pycache__/
 ## db
 db.sqlite3
 
+##front
+node_modules/
+
 ##other
 .DS_Store
