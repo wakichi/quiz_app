@@ -9,7 +9,7 @@ const endpoint = "http://localhost:8000/api/quiz/"
 
 
 export default function App(){
-  const [data, setdata] = React.useState(["str"]);
+  const [data, setdata] = React.useState([""]);
   React.useEffect(() => {
     axios.get(endpoint).then((response)=>{
       setdata(data2list(response.data))
@@ -19,6 +19,9 @@ export default function App(){
   return(
     <div>
       <h1>test</h1>
+      <QuizForm quiz={'sampleQ'} />
+      <Counter />
+      <Block quiz={"hoge"} answer={true}/>
       <ul>
         {response2list(data)}
       </ul>
@@ -44,6 +47,45 @@ const response2list = (data:any)=>{
     <ul>
       {list}
     </ul>
+  )
+}
+
+const Counter = ()=>{
+  const[value, setValue] = React.useState(0);
+  const increment = () => setValue(prev => prev+1);
+  const decrement = () => setValue(prev=> prev-1);;
+  return (
+    <div>
+      {value}
+      <button onClick={increment}>+1</button>
+      <button onClick={decrement}>-1</button>
+    </div>
+  )
+};
+
+// 問題、答え、解答ボタンをひとまとめにしたブロック
+//todo: answer-button componentの作成
+//todo: 
+const Block = (props:{quiz:string, answer:boolean})=>{
+  return(
+    <div className='box'>
+      quizs:{props.quiz}
+      answer:{props.answer}
+    </div>
+  )
+}
+
+// 問題の追加フォームの作成
+const QuizForm = (props:{quiz:string})=>{
+  //thenでAppのリストを更新（stateに新規objectを追加）
+  const samplePost = ()=>{
+    axios.post(endpoint, {problem:"aaaaaa",answer:true})
+    .then(response=>console.log(response.data))
+  }
+  return(
+  <div>
+    <button onClick={samplePost}>sample post</button>
+  </div>
   )
 }
 
