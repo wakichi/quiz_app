@@ -4,6 +4,7 @@ import './index.css';
 import QuizBox from './QuizBox';
 import {dataType, postDataType} from "./types"
 // import App from './App';
+import Header from './Header';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
 import{Button} from "@mui/material"
@@ -41,7 +42,8 @@ export default function App(){
 
   return(
     <div>
-      <h1>test</h1>
+      <Header />
+      <h1>QuIz</h1>
       <QuizForm quiz={postData} addData ={addData}/>
       <Counter />
       <ProblemList datas={data} />
