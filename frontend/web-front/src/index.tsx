@@ -8,6 +8,8 @@ import Header from './Header';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
 import{Button} from "@mui/material"
+import SampleForm from "./SampleForm";
+import TextField from '@mui/material/TextField';
 
 const endpoint = "http://localhost:8000/api/quiz/"
 
@@ -47,6 +49,7 @@ export default function App(){
       <QuizForm quiz={postData} addData ={addData}/>
       <Counter />
       <ProblemList datas={data} />
+      <SampleForm/>
       <ul>
         {/* {response2list(data)} */}
       </ul>
