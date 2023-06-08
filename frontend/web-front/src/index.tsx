@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import QuizBox from './QuizBox';
+import {dataType} from "./types"
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
@@ -8,27 +10,44 @@ import axios from "axios";
 const endpoint = "http://localhost:8000/api/quiz/"
 
 
+
 export default function App(){
-  const [data, setdata] = React.useState([""]);
+  const initialData={
+    problem:"dog",
+    answer:true,
+    id:0
+  }
+  const [data, setData] = React.useState<dataType[]>([initialData]);
+  const addData=(d:dataType)=>{
+    // console.log([...data, newData])
+    setData((prevDatas)=>{return [...prevDatas, d]})
+    console.log(data)
+  }
   React.useEffect(() => {
     axios.get(endpoint).then((response)=>{
-      setdata(data2list(response.data))
+      for (let d of response["data"]){
+        console.log(d)
+        addData(d)
+      }
+      // setdata(data2list(response["data"]))
       // console.log(typeof(response.data[0]["problem"]))
     })
   },[]) 
+
   return(
     <div>
       <h1>test</h1>
       <QuizForm quiz={'sampleQ'} />
       <Counter />
       <Block quiz={"hoge"} answer={true}/>
+      <ProblemList datas={data} />
+      {/* <button onClick={addData(initialData)}>Add</button> */}
       <ul>
-        {response2list(data)}
+        {/* {response2list(data)} */}
       </ul>
     </div>
   )
 }
-
 const data2list = (data:any)=>{
   const list =[]
   for(const d of data){
@@ -50,6 +69,18 @@ const response2list = (data:any)=>{
   )
 }
 
+const ProblemList =(props:{datas:dataType[]})=>{
+  const list = []
+  for (const dt of props.datas){
+    list.push(<QuizBox props={dt}/>)
+  }
+  // const quizComponents = props.datas.map(data=><QuizBox props={data}/>)
+  return(
+    <div>
+      {list}
+    </div>
+  )
+}
 const Counter = ()=>{
   const[value, setValue] = React.useState(0);
   const increment = () => setValue(prev => prev+1);
@@ -79,7 +110,7 @@ const Block = (props:{quiz:string, answer:boolean})=>{
 const QuizForm = (props:{quiz:string})=>{
   //thenでAppのリストを更新（stateに新規objectを追加）
   const samplePost = ()=>{
-    axios.post(endpoint, {problem:"aaaaaa",answer:true})
+    axios.post(endpoint, {problem:props.quiz,answer:true})
     .then(response=>console.log(response.data))
   }
   return(
@@ -88,6 +119,7 @@ const QuizForm = (props:{quiz:string})=>{
   </div>
   )
 }
+
 
 ReactDOM.render(
   <App />,

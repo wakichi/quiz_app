@@ -15,3 +15,8 @@ code {
 .box {
   background-color: yellow;
 }
+
+div.quizbox{
+  background-color: red;
+  border:solid;
+}
