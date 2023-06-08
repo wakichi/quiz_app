@@ -16,7 +16,8 @@ code {
   background-color: yellow;
 }
 
-div.quizbox{
-  background-color: red;
+div.quizbox {
+  font-size:large;
   border:solid;
+  background-color: aquamarine;
 }

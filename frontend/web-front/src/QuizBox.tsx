@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import AnswerButton from "./AnswerButton"
 import{dataType} from "./types"
+import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 // quizデータのjsonを受け取って、問題・答え・解答ボタンの表示を行う。
 //削除ボタンの追加
 
@@ -19,7 +21,10 @@ const QuizBox:React.FC<{props:dataType}> = ({props})=>{
                 {props.problem}
             </div>
             <AnswerButton correctanswer={true}/>
-            <button onClick={()=>deleteHandle(props.id)}>delete</button>
+            {/* <button onClick={()=>deleteHandle(props.id)}>delete</button> */}
+            <IconButton type="button" onClick={()=>deleteHandle(props.id)}>
+                <DeleteIcon />
+            </IconButton>
         </div>
     )
 }

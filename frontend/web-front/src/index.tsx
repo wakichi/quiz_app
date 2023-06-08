@@ -6,6 +6,7 @@ import {dataType, postDataType} from "./types"
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
+import{Button} from "@mui/material"
 
 const endpoint = "http://localhost:8000/api/quiz/"
 
@@ -44,7 +45,6 @@ export default function App(){
       <QuizForm quiz={postData} addData ={addData}/>
       <Counter />
       <ProblemList datas={data} />
-      <button onClick={()=>{addData(initialData)}}>Add</button>
       <ul>
         {/* {response2list(data)} */}
       </ul>
@@ -108,7 +108,7 @@ const QuizForm = (props:{quiz:postDataType, addData:(d:dataType)=>void})=>{
   }
   return(
   <div>
-    <button onClick={()=>{formClickHandler(props.quiz, props.addData)}}>samplePost</button>
+    <Button variant="contained" onClick={()=>{formClickHandler(props.quiz, props.addData)}}> Submit</Button>
   </div>
   )
 }
