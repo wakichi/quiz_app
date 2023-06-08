@@ -17,7 +17,7 @@ export default function App(){
     answer:true,
     id:0
   }
-  const [data, setData] = React.useState<dataType[]>([initialData]);
+  const [data, setData] = React.useState<dataType[]>([]);
   const addData=(d:dataType)=>{
     // console.log([...data, newData])
     setData((prevDatas)=>{return [...prevDatas, d]})
