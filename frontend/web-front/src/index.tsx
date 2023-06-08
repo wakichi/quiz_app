@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import QuizBox from './QuizBox';
-import {dataType} from "./types"
+import {dataType, postDataType} from "./types"
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
@@ -16,6 +16,10 @@ export default function App(){
     problem:"dog",
     answer:true,
     id:0
+  }
+  const postData={
+    problem:"how are you",
+    answer:true
   }
   const [data, setData] = React.useState<dataType[]>([]);
   const addData=(d:dataType)=>{
@@ -37,17 +41,17 @@ export default function App(){
   return(
     <div>
       <h1>test</h1>
-      <QuizForm quiz={'sampleQ'} />
+      <QuizForm quiz={postData} addData ={addData}/>
       <Counter />
-      <Block quiz={"hoge"} answer={true}/>
       <ProblemList datas={data} />
-      {/* <button onClick={addData(initialData)}>Add</button> */}
+      <button onClick={()=>{addData(initialData)}}>Add</button>
       <ul>
         {/* {response2list(data)} */}
       </ul>
     </div>
   )
 }
+
 const data2list = (data:any)=>{
   const list =[]
   for(const d of data){
@@ -94,28 +98,17 @@ const Counter = ()=>{
   )
 };
 
-// 問題、答え、解答ボタンをひとまとめにしたブロック
-//todo: answer-button componentの作成
-//todo: 
-const Block = (props:{quiz:string, answer:boolean})=>{
-  return(
-    <div className='box'>
-      quizs:{props.quiz}
-      answer:{props.answer}
-    </div>
-  )
-}
 
 // 問題の追加フォームの作成
-const QuizForm = (props:{quiz:string})=>{
+const QuizForm = (props:{quiz:postDataType, addData:(d:dataType)=>void})=>{
   //thenでAppのリストを更新（stateに新規objectを追加）
-  const samplePost = ()=>{
-    axios.post(endpoint, {problem:props.quiz,answer:true})
-    .then(response=>console.log(response.data))
+  const formClickHandler = (quiz:postDataType, addData2:(d:dataType)=>void)=>{
+    axios.post(endpoint, quiz)
+    .then((response)=>{addData2(response.data);})
   }
   return(
   <div>
-    <button onClick={samplePost}>sample post</button>
+    <button onClick={()=>{formClickHandler(props.quiz, props.addData)}}>samplePost</button>
   </div>
   )
 }

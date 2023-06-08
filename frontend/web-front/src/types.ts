@@ -3,3 +3,7 @@ export type dataType={
     answer:boolean,
     id:number
   }
+export type postDataType={
+    problem:string,
+    answer:boolean,
+}
