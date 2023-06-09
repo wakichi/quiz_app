@@ -12,7 +12,7 @@ import axios from "axios";
 
 import Checkbox from '@mui/material/Checkbox';
 
-export default function FormDialog() {
+export default function FormDialog(props:{addFunc:(id:number, cont:postDataType)=>void}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -30,9 +30,14 @@ export default function FormDialog() {
     formState:{errors},
     }= useForm<postDataType>();
 
+    const addHandler =(data:any)=>{
+        const id:number = data.id;
+        const content:postDataType = (({id, ...rest})=>rest)(data)
+        props.addFunc(id, content)
+    }
     const onSubmit:SubmitHandler<postDataType> = (data)=>{
         const endpoint = "http://localhost:8000/api/quiz/"
-        axios.post(endpoint,data).then(response=>{console.log(response)})
+        axios.post(endpoint,data).then(response=>addHandler(response.data))
         console.log(data)
         reset()
     }

@@ -5,14 +5,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import FormMenu from "./FormMenu"
-const Header =()=>{
+import { postDataType } from './types';
+const Header =(props:{addFunc:(id:number, cont:postDataType)=>void})=>{
     return(
         <AppBar>
             <Toolbar title="a">
                 <IconButton size="large">
                     <MenuIcon/>
                 </IconButton>
-                <FormMenu/>
+                <FormMenu addFunc={props.addFunc}/>
                 <Button color="inherit" size="large">Login</Button>
             </Toolbar>
         </AppBar>

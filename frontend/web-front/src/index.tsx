@@ -41,7 +41,7 @@ export default function App(){
 
   return(
     <div>
-      <Header />
+      <Header addFunc={addData}/>
       <h1>QuIz</h1>
       {/* <Logfunc datas={data} funcy={deleteData}/> */}
       <ProblemList datas={data} delFunc={deleteData}/>
