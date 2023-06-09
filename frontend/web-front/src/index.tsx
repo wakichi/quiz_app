@@ -23,7 +23,8 @@ export default function App(){
   }
 
   const deleteData=(id:number)=>{
-
+    const {[id]:delContent, ...content}= data
+    setData(content)
   }
 
   React.useEffect(() => {
@@ -42,20 +43,22 @@ export default function App(){
     <div>
       <Header />
       <h1>QuIz</h1>
-      <ProblemList datas={data} />
+      {/* <Logfunc datas={data} funcy={deleteData}/> */}
+      <ProblemList datas={data} delFunc={deleteData}/>
     </div>
   )
 }
 
-const Logfunc=(props:{datas:DataListType})=>{
+const Logfunc=(props:{datas:DataListType, funcy:(id:number)=>void})=>{
   console.log(props.datas)
+  props.funcy(2)
   return(<div></div>)
 }
 
-const ProblemList =(props:{datas:DataListType})=>{
+const ProblemList =(props:{datas:DataListType, delFunc:(id:number)=>void})=>{
   const list = []
   for (const key in props.datas){
-    list.push(<QuizBox data={props.datas[key]} id={parseInt(key)}/>)
+    list.push(<QuizBox data={props.datas[key]} id={parseInt(key)} delFunc={props.delFunc}/>)
   }
   // const quizComponents = props.datas.map(data=><QuizBox props={data}/>)
   return(

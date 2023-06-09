@@ -9,11 +9,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const endpoint = "http://localhost:8000/api/quiz/"
 
-const QuizBox = (props:{data:postDataType, id:number})=>{
-    console.log(props)
+const QuizBox = (props:{data:postDataType, id:number,delFunc:(id:number)=>void})=>{
     const deleteHandle = (id:number)=>{
         const endpoint_id =endpoint +id.toString()+"/"
-        axios.delete(endpoint_id).then((response)=>console.log(response))
+        axios.delete(endpoint_id).then(()=>props.delFunc(id))
+
     }
     return (
         <div className="quizbox">
