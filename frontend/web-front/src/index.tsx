@@ -8,8 +8,7 @@ import Header from './Header';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
 import{Button} from "@mui/material"
-import SampleForm from "./SampleForm";
-import TextField from '@mui/material/TextField';
+import CardListSample from"./CardListSample"
 
 const endpoint = "http://localhost:8000/api/quiz/"
 
@@ -43,6 +42,7 @@ export default function App(){
     <div>
       <Header addFunc={addData}/>
       <h1>QuIz</h1>
+      <CardListSample datas={data} delFunc={deleteData}/>
       {/* <Logfunc datas={data} funcy={deleteData}/> */}
       <ProblemList datas={data} delFunc={deleteData}/>
     </div>
