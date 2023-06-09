@@ -20,7 +20,6 @@ const QuizBox = (props:{data:postDataType, id:number,delFunc:(id:number)=>void})
             <div className="quiz">
                 {props.data.problem}
             </div>
-            <AnswerButton correctanswer={true}/>
             {/* <button onClick={()=>deleteHandle(props.id)}>delete</button> */}
             <IconButton type="button" onClick={()=>deleteHandle(props.id)}>
                 <DeleteIcon />
