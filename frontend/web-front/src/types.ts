@@ -12,3 +12,7 @@ export type sampleFormType={
     name:string,
     email:string
 }
+
+export type DataListType={
+    [id:number]:postDataType;
+}

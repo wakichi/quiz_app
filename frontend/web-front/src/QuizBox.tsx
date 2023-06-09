@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import AnswerButton from "./AnswerButton"
-import{dataType} from "./types"
+import{dataType, postDataType} from "./types"
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 // quizデータのjsonを受け取って、問題・答え・解答ボタンの表示を行う。
@@ -9,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const endpoint = "http://localhost:8000/api/quiz/"
 
-const QuizBox:React.FC<{props:dataType}> = ({props})=>{
+const QuizBox = (props:{data:postDataType, id:number})=>{
     console.log(props)
     const deleteHandle = (id:number)=>{
         const endpoint_id =endpoint +id.toString()+"/"
@@ -18,7 +18,7 @@ const QuizBox:React.FC<{props:dataType}> = ({props})=>{
     return (
         <div className="quizbox">
             <div className="quiz">
-                {props.problem}
+                {props.data.problem}
             </div>
             <AnswerButton correctanswer={true}/>
             {/* <button onClick={()=>deleteHandle(props.id)}>delete</button> */}

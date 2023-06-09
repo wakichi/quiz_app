@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import QuizBox from './QuizBox';
-import {dataType, postDataType} from "./types"
+import {dataType, postDataType, DataListType} from "./types"
 // import App from './App';
 import Header from './Header';
 import reportWebVitals from './reportWebVitals';
@@ -16,26 +16,22 @@ const endpoint = "http://localhost:8000/api/quiz/"
 
 
 export default function App(){
-  const initialData={
-    problem:"dog",
-    answer:true,
-    id:0
-  }
-  const postData={
-    problem:"how are you",
-    answer:true
-  }
-  const [data, setData] = React.useState<dataType[]>([]);
-  const addData=(d:dataType)=>{
+  const [data, setData] = React.useState<DataListType>({});
+  const addData=(id:number, content:postDataType)=>{
     // console.log([...data, newData])
-    setData((prevDatas)=>{return [...prevDatas, d]})
-    console.log(data)
+    setData((prevDatas)=>{return {...prevDatas, [id]:content}})
   }
+
+  const deleteData=(id:number)=>{
+
+  }
+
   React.useEffect(() => {
     axios.get(endpoint).then((response)=>{
       for (let d of response["data"]){
-        console.log(d)
-        addData(d)
+        const id:number = d.id;
+        const content:postDataType = (({id, ...rest})=>rest)(d)
+        addData(id, content)
       }
       // setdata(data2list(response["data"]))
       // console.log(typeof(response.data[0]["problem"]))
@@ -46,42 +42,20 @@ export default function App(){
     <div>
       <Header />
       <h1>QuIz</h1>
-      <QuizForm quiz={postData} addData ={addData}/>
-      <Counter />
       <ProblemList datas={data} />
-      <SampleForm/>
-      <ul>
-        {/* {response2list(data)} */}
-      </ul>
     </div>
   )
 }
 
-const data2list = (data:any)=>{
-  const list =[]
-  for(const d of data){
-    list.push(d["problem"])
-  }
-  return list
+const Logfunc=(props:{datas:DataListType})=>{
+  console.log(props.datas)
+  return(<div></div>)
 }
 
-const response2list = (data:any)=>{
+const ProblemList =(props:{datas:DataListType})=>{
   const list = []
-  for (const dt of data){
-    list.push(<li>{dt}</li>)
-  }
-  console.log(list)
-  return(
-    <ul>
-      {list}
-    </ul>
-  )
-}
-
-const ProblemList =(props:{datas:dataType[]})=>{
-  const list = []
-  for (const dt of props.datas){
-    list.push(<QuizBox props={dt}/>)
+  for (const key in props.datas){
+    list.push(<QuizBox data={props.datas[key]} id={parseInt(key)}/>)
   }
   // const quizComponents = props.datas.map(data=><QuizBox props={data}/>)
   return(
@@ -90,6 +64,7 @@ const ProblemList =(props:{datas:dataType[]})=>{
     </div>
   )
 }
+
 const Counter = ()=>{
   const[value, setValue] = React.useState(0);
   const increment = () => setValue(prev => prev+1);
