@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
+import AnswerButton from './AnswerButton';
 
 
 export default function QuizCard(props:{data:postDataType, id:number,delFunc:(id:number)=>void}) {
@@ -18,13 +19,36 @@ export default function QuizCard(props:{data:postDataType, id:number,delFunc:(id
         const endpoint_id =endpoint +id.toString()+"/"
         axios.delete(endpoint_id).then(()=>props.delFunc(id))
     }
+
+    const [isCorrect, setIsCorrect]=React.useState<boolean>()
+    const handleIsCorrect=(pushedAnswer:boolean)=>{
+      const correctAnswer=props.data.answer
+      setIsCorrect(pushedAnswer==correctAnswer)
+      console.log(pushedAnswer,correctAnswer)
+      console.log(isCorrect)
+    }
+    // const bcolor=(isCorrect) ?"#009688" : "#ff1744"
+    const bcolor="#ff1744"
+    const styleCorrect={
+      backgroundColor:"#009688"
+    }
+    const styleUncorrect={
+      backgroundColor:"#ff1744"
+    }
+    let style;
+    if (isCorrect == undefined){
+      style={}
+    }else{
+      style=(isCorrect) ?styleCorrect:styleUncorrect
+    }
+
   return (
-    <Card sx={{ minWidth: 275 }} variant="outlined">
+    <Card sx={{ minWidth: 275 }} variant="outlined" style={style}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           author
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        <Typography sx={{ mb: 1.5, fontsize:30}} color="text.secondary">
           {props.data.problem}
         </Typography>
         <Typography variant="body2">
@@ -32,8 +56,7 @@ export default function QuizCard(props:{data:postDataType, id:number,delFunc:(id
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={()=>console.log("hoo")}>Yes</Button>
-        <Button size="small" onClick={()=>console.log("baa")}>No</Button>
+        <AnswerButton  answerHandler={handleIsCorrect}/>
         <IconButton aria-label="delete">
             {/* 押したら変更する機能 */}
             <FavoriteBorderIcon />

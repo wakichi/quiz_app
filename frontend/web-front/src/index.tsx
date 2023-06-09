@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import QuizBox from './QuizBox';
 import {dataType, postDataType, DataListType} from "./types"
 // import App from './App';
 import Header from './Header';
@@ -43,8 +42,6 @@ export default function App(){
       <Header addFunc={addData}/>
       <h1>QuIz</h1>
       <CardListSample datas={data} delFunc={deleteData}/>
-      {/* <Logfunc datas={data} funcy={deleteData}/> */}
-      <ProblemList datas={data} delFunc={deleteData}/>
     </div>
   )
 }
@@ -55,18 +52,18 @@ const Logfunc=(props:{datas:DataListType, funcy:(id:number)=>void})=>{
   return(<div></div>)
 }
 
-const ProblemList =(props:{datas:DataListType, delFunc:(id:number)=>void})=>{
-  const list = []
-  for (const key in props.datas){
-    list.push(<QuizBox data={props.datas[key]} id={parseInt(key)} delFunc={props.delFunc}/>)
-  }
-  // const quizComponents = props.datas.map(data=><QuizBox props={data}/>)
-  return(
-    <div>
-      {list}
-    </div>
-  )
-}
+// const ProblemList =(props:{datas:DataListType, delFunc:(id:number)=>void})=>{
+//   const list = []
+//   for (const key in props.datas){
+//     list.push(<QuizBox data={props.datas[key]} id={parseInt(key)} delFunc={props.delFunc}/>)
+//   }
+//   // const quizComponents = props.datas.map(data=><QuizBox props={data}/>)
+//   return(
+//     <div>
+//       {list}
+//     </div>
+//   )
+// }
 
 const Counter = ()=>{
   const[value, setValue] = React.useState(0);
