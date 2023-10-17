@@ -1,18 +1,18 @@
-export type dataType={
-    problem:string
-    answer:boolean,
-    id:number
-  }
-export type postDataType={
-    problem:string,
-    answer:boolean,
-}
+export type dataType = {
+  problem: string;
+  answer: boolean;
+  id: number;
+};
+export type postDataType = {
+  problem: string;
+  answer: boolean;
+};
 
-export type sampleFormType={
-    name:string,
-    email:string
-}
+export type sampleFormType = {
+  name: string;
+  email: string;
+};
 
-export type DataListType={
-    [id:number]:postDataType;
-}
+export type DataListType = {
+  [id: number]: postDataType;
+};
