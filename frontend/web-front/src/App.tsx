@@ -12,15 +12,15 @@ import {
 
 export const App: React.VFC = () => {
   return (
-    <>
-      <Router>
-        <Routes>
-          <Route index element={<QuizApp />} />
-          <Route path="login/:id" element={<Login />} />
-          <Route path="Signup" element={<Signup />} />
-        </Routes>
-      </Router>
-    </>
+    <Router>
+      <Routes>
+        <Route index element={<QuizApp />} />
+        <Route path="quiz" element={<QuizApp />} />
+        <Route path="quiz/detail/:id" element={<QuizApp />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
+      </Routes>
+    </Router>
   );
 };
 export default App;
