@@ -2,12 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { dataType, postDataType, DataListType } from "./types";
-import App from "./App";
+import QuizApp from "./QuizApp";
 import Header from "./Header";
 import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 import { Button } from "@mui/material";
 import CardListSample from "./CardListSample";
+import App from "./App";
 
 const endpoint = "http://localhost:8000/api/quiz/";
 

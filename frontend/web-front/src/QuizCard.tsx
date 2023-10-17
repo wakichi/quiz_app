@@ -65,7 +65,7 @@ export default function QuizCard(props: {
       </CardContent>
       <CardActions>
         <AnswerButton answerHandler={handleIsCorrect} />
-        <IconButton aria-label="delete">
+        <IconButton disabled={true}>
           {/* 押したら変更する機能 */}
           <FavoriteBorderIcon />
         </IconButton>
