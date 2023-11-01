@@ -51,9 +51,14 @@ services:
     environment:
       - ENV=PROD
 
-  nginx-p:
+  nginx:
     image: nginx:1.13
     container_name: nginx
+    # build: ./nginx/.
+    # for frontend build folder
+    volumes:
+      - ./../frontend/build:/usr/share/nginx/html
+      - ./nginx/:/etc/nginx/conf.d
     ports:
       - "80:80"
     depends_on:
