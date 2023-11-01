@@ -1,5 +1,6 @@
 version: "3"
-
+#memo
+# nginxをリバースプロキシで使う場合、フロントとバックそれぞれにwebサーバなくてもいいかも
 services:
   backend:
     build: ./backend/app/.
@@ -43,14 +44,18 @@ services:
       - ./frontend/web-front/:/usr/src/app
     working_dir: /usr/src/app
     # たぶんここはbuildで良さそう？
-    command: sh -c "npm install &&npm build"
+    command: sh -c "npm install && npm run build"
     ports:
       - "3000:3000"
-    stdin_open: true
-    tty: true
-    # depends_on消す？
-    depends_on:
-      - backend
-      - db
+    # stdin_open: true
     environment:
       - ENV=PROD
+
+  nginx-p:
+    image: nginx:1.13
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      frontend:
+        condition: service_completed_successfully
