@@ -3,15 +3,25 @@ version: "3"
 services:
   backend:
     build: ./backend/app/.
+    # todo: ここをアプリケーションサーバの立ち上げに変更
     command: python manage.py runserver 0.0.0.0:8000
+    # todo:ここはvolumeじゃなくてコピーのほうがいいかも？
     volumes:
-      - ./backend/app/:/code/
+      - ./backend/app:/code/
+    # todo portsは普通これでいい？
     ports:
       - "8000:8000"
+    # depends_on消す？
     depends_on:
       db:
         condition: service_healthy
+    #todo:access pointとかもenvいれる？
+    environment:
+      - ENV=PROD
+    #todo:networkあったほうがいい？
 
+  # rds使う場合はここごっそりけしてよい？
+  # rdsの設定をbackend/environにいれる？
   db:
     image: mysql
     environment:
@@ -28,15 +38,19 @@ services:
 
   frontend:
     image: node:alpine
+    # volumes消す？
     volumes:
       - ./frontend/web-front/:/usr/src/app
     working_dir: /usr/src/app
-    command: sh -c "npm install &&npm start"
-    # command: sh -c "ls"
+    # たぶんここはbuildで良さそう？
+    command: sh -c "npm install &&npm build"
     ports:
       - "3000:3000"
     stdin_open: true
     tty: true
+    # depends_on消す？
     depends_on:
       - backend
       - db
+    environment:
+      - ENV=PROD
