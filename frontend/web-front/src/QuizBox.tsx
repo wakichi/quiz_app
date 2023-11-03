@@ -7,7 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 // quizデータのjsonを受け取って、問題・答え・解答ボタンの表示を行う。
 //削除ボタンの追加
 
-const endpoint = "http://localhost:8000/api/quiz/";
+const endpoint = "http://127.0.0.1:8080/api/quiz/";
 
 const QuizBox = (props: {
   data: postDataType;

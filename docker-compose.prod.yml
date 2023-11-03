@@ -3,9 +3,10 @@ version: "3"
 # nginxをリバースプロキシで使う場合、フロントとバックそれぞれにwebサーバなくてもいいかも
 services:
   backend:
+    container_name: backend-prod
     build: ./backend/app/.
     # todo: ここをアプリケーションサーバの立ち上げに変更
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn -w 4 quizProject.wsgi:application --bind 0.0.0.0:8000 --chdir /code/quizProject
     # todo:ここはvolumeじゃなくてコピーのほうがいいかも？
     volumes:
       - ./backend/app:/code/
@@ -25,6 +26,7 @@ services:
   # rdsの設定をbackend/environにいれる？
   db:
     image: mysql
+    container_name: db-prod
     environment:
       MYSQL_DATABASE: django-db
       MYSQL_USER: django
@@ -38,6 +40,7 @@ services:
       test: mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD
 
   frontend:
+    container_name: front_prod
     image: node:alpine
     # volumes消す？
     volumes:
@@ -47,20 +50,22 @@ services:
     command: sh -c "npm install && npm run build"
     ports:
       - "3000:3000"
+    tty: true
     # stdin_open: true
     environment:
       - ENV=PROD
 
   nginx:
+    container_name: nginx-prod
     image: nginx:1.13
-    container_name: nginx
     # build: ./nginx/.
     # for frontend build folder
     volumes:
-      - ./../frontend/build:/usr/share/nginx/html
+      - ./frontend/web-front/build:/usr/share/nginx/html
       - ./nginx/:/etc/nginx/conf.d
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
-      frontend:
-        condition: service_completed_successfully
+      - backend
+      # frontend:
+      #   condition: service_completed_successfully
