@@ -38,7 +38,7 @@ export default function FormDialog(props: {
     props.addFunc(id, content);
   };
   const onSubmit: SubmitHandler<postDataType> = (data) => {
-    const endpoint = "http://127.0.0.1:8080/api/quiz/";
+    const endpoint = "/api/quiz/";
     axios.post(endpoint, data).then((response) => addHandler(response.data));
     console.log(data);
     reset();

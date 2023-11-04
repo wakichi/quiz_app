@@ -10,7 +10,7 @@ import { Button } from "@mui/material";
 import CardListSample from "./CardListSample";
 import App from "./App";
 
-const endpoint = "http://localhost:8000/api/quiz/";
+const endpoint = "/api/quiz/";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

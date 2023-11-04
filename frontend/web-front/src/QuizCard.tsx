@@ -11,7 +11,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import AnswerButton from "./AnswerButton";
-const endpoint = "http://127.0.0.1:8080/api/quiz/";
+const endpoint = "/api/quiz/";
 
 export default function QuizCard(props: {
   data: postDataType;

@@ -9,7 +9,7 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import CardListSample from "./CardListSample";
 
-const endpoint = "http://127.0.0.1:8080/api/quiz/";
+const endpoint = "/api/quiz/";
 
 export default function QuizApp() {
   const [data, setData] = React.useState<DataListType>({});

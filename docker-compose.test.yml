@@ -1,4 +1,5 @@
 version: "3"
+# 本番用のサーバをローカルで試すための構成です
 #memo
 # nginxをリバースプロキシで使う場合、フロントとバックそれぞれにwebサーバなくてもいいかも
 services:
@@ -13,10 +14,31 @@ services:
     # todo portsは普通これでいい？
     ports:
       - "8000:8000"
+    # depends_on消す？
+    depends_on:
+      db:
+        condition: service_healthy
     #todo:access pointとかもenvいれる？
     environment:
       - ENV=PROD
     #todo:networkあったほうがいい？
+
+  # rds使う場合はここごっそりけしてよい？
+  # rdsの設定をbackend/environにいれる？
+  db:
+    image: mysql
+    container_name: db-prod
+    environment:
+      MYSQL_DATABASE: django-db
+      MYSQL_USER: django
+      MYSQL_PASSWORD: django
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD
 
   frontend:
     container_name: front_prod
@@ -43,7 +65,7 @@ services:
       - ./frontend/web-front/build:/usr/share/nginx/html
       - ./nginx/:/etc/nginx/conf.d
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - backend
       # frontend:
