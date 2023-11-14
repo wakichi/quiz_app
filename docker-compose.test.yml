@@ -20,7 +20,7 @@ services:
         condition: service_healthy
     #todo:access pointとかもenvいれる？
     environment:
-      - ENV=PROD
+      - ENV=DEV
     #todo:networkあったほうがいい？
 
   # rds使う場合はここごっそりけしてよい？
@@ -54,7 +54,7 @@ services:
     tty: true
     # stdin_open: true
     environment:
-      - ENV=PROD
+      - ENV=DEV
 
   nginx:
     container_name: nginx-prod

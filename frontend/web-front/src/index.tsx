@@ -9,8 +9,7 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import CardListSample from "./CardListSample";
 import App from "./App";
-
-const endpoint = "/api/quiz/";
+import endpoint from "./endpoint";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

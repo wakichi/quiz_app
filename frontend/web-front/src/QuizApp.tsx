@@ -8,11 +8,11 @@ import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 import { Button } from "@mui/material";
 import CardListSample from "./CardListSample";
-
-const endpoint = "/api/quiz/";
+import endpoint from "./endpoint";
 
 export default function QuizApp() {
   const [data, setData] = React.useState<DataListType>({});
+  console.log(process.env);
   const addData = (id: number, content: postDataType) => {
     // console.log([...data, newData])
     setData((prevDatas) => {
