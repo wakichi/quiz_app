@@ -9,7 +9,8 @@
 /coverage
 
 # production
-/build
+# s3等にアップロードできるまではgitにあげる(要修正)
+#/build
 
 # misc
 .DS_Store
