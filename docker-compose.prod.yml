@@ -3,8 +3,7 @@ version: "3"
 # nginxをリバースプロキシで使う場合、フロントとバックそれぞれにwebサーバなくてもいいかも
 services:
   backend:
-    container_name: backend-prod
-    build: ./backend/app/.
+    image: koheikujira/quiz_app-backend:latest
     # todo: ここをアプリケーションサーバの立ち上げに変更
     command: gunicorn -w 4 quizProject.wsgi:application --bind 0.0.0.0:8000 --chdir /code/quizProject
     # todo:ここはvolumeじゃなくてコピーのほうがいいかも？
@@ -19,13 +18,11 @@ services:
     #todo:networkあったほうがいい？
 
   frontend:
-    container_name: front_prod
     image: node:alpine
     # volumes消す？
     volumes:
       - ./frontend/web-front/:/usr/src/app
     working_dir: /usr/src/app
-    # たぶんここはbuildで良さそう？
     command: sh -c "npm install && npm run build"
     ports:
       - "3000:3000"
@@ -35,7 +32,6 @@ services:
       - ENV=PROD
 
   nginx:
-    container_name: nginx-prod
     image: nginx:1.13
     # build: ./nginx/.
     # for frontend build folder
