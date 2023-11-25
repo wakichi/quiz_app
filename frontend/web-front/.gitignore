@@ -10,7 +10,7 @@
 
 # production
 # s3等にアップロードできるまではgitにあげる(要修正)
-#/build
+/build
 
 # misc
 .DS_Store
