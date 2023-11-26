@@ -12,9 +12,6 @@ import endpoint from "./endpoint";
 
 export default function QuizApp() {
   const [data, setData] = React.useState<DataListType>({});
-  console.log(process.env);
-  console.log(process.env.NODE_ENV);
-  console.log(endpoint);
   const addData = (id: number, content: postDataType) => {
     // console.log([...data, newData])
     setData((prevDatas) => {
@@ -52,7 +49,6 @@ const Logfunc = (props: {
   datas: DataListType;
   funcy: (id: number) => void;
 }) => {
-  console.log(props.datas);
   props.funcy(2);
   return <div></div>;
 };

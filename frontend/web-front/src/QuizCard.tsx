@@ -31,8 +31,6 @@ export default function QuizCard(props: {
   const handleIsCorrect = (pushedAnswer: boolean) => {
     const correctAnswer = props.data.answer;
     setIsCorrect(pushedAnswer == correctAnswer);
-    console.log(pushedAnswer, correctAnswer);
-    console.log(isCorrect);
   };
   // const bcolor=(isCorrect) ?"#009688" : "#ff1744"
   const bcolor = "#ff1744";

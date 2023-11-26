@@ -10,7 +10,9 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - ENV=production
+      - DJANGO_ENV=production
+    env_file:
+      - backend.env
 
   nginx:
     image: nginx:1.13

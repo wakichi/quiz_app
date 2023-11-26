@@ -13,6 +13,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    environment:
+      - DJANGO_ENV=development
 
   db:
     image: mysql

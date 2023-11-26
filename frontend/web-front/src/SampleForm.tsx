@@ -17,7 +17,6 @@ const SampleForm = () => {
   const onSubmit: SubmitHandler<postDataType> = (data) => {
     // const endpoint = "http://localhost:8000/api/quiz/"
     // axios.post(endpoint,data).then(response=>{console.log(response)})
-    console.log(data);
   };
 
   return (
