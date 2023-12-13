@@ -3,7 +3,7 @@ version: "3"
 services:
   backend:
     build: ./backend/app/.
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python -B manage.py runserver 0.0.0.0:8000
     volumes:
       - ./backend/app/:/code/
     ports:
@@ -13,6 +13,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    environment:
+      - DJANGO_ENV=development
 
   db:
     image: mysql

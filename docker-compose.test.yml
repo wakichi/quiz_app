@@ -20,7 +20,10 @@ services:
         condition: service_healthy
     #todo:access pointとかもenvいれる？
     environment:
-      - ENV=DEV
+      - DJANGO_ENV=development
+    #todo:networkあったほうがいい？
+    env_file:
+      - backend.env
     #todo:networkあったほうがいい？
 
   # rds使う場合はここごっそりけしてよい？
