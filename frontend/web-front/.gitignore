@@ -9,6 +9,7 @@
 /coverage
 
 # production
+# s3等にアップロードできるまではgitにあげる(要修正)
 /build
 
 # misc

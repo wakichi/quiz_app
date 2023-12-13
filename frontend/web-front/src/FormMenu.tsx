@@ -9,7 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { postDataType, sampleFormType } from "./types";
 import axios from "axios";
-
+import endpoint from "./endpoint";
 import Checkbox from "@mui/material/Checkbox";
 
 export default function FormDialog(props: {
@@ -38,7 +38,6 @@ export default function FormDialog(props: {
     props.addFunc(id, content);
   };
   const onSubmit: SubmitHandler<postDataType> = (data) => {
-    const endpoint = "http://localhost:8000/api/quiz/";
     axios.post(endpoint, data).then((response) => addHandler(response.data));
     console.log(data);
     reset();

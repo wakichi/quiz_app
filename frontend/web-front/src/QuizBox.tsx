@@ -4,10 +4,9 @@ import AnswerButton from "./AnswerButton";
 import { dataType, postDataType } from "./types";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import endpoint from "./endpoint";
 // quizデータのjsonを受け取って、問題・答え・解答ボタンの表示を行う。
 //削除ボタンの追加
-
-const endpoint = "http://localhost:8000/api/quiz/";
 
 const QuizBox = (props: {
   data: postDataType;
