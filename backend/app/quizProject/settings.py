@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+
+if os.environ.get('DJANGO_ENV') == "production":
+    from .settings.prod import *
+else:
+    from .settings.dev import *
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@f@bdlp&fc5#-(%^=k+jkcvh-l%%ks3!6hj3xrvik_)$45jy9-'
+SECRET_KEY =os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
 
 
 # Application definition
@@ -77,16 +80,6 @@ WSGI_APPLICATION = 'quizProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django-db',
-        'USER':'django',
-        'PASSWORD':'django',
-        'HOST': 'db',
-        'PORT': '3306'
-    }
-}
 
 
 # Password validation
@@ -131,14 +124,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #cross origin header settings 
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost',
-    'http://localhost:3000',
-    'http://localhost:8080',
-    "http://127.0.0.1:8080",
-    'http://172.18.0.4:3000',
-    'http://172.18.0.4',
-)
 
 CORS_ALLOW_METHODS = [
 'DELETE',
