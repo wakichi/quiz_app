@@ -16,7 +16,7 @@ const Header = (props: {
           <MenuIcon />
         </IconButton>
         <FormMenu addFunc={props.addFunc} />
-        <Button color="inherit" size="large">
+        <Button color="inherit" size="large" href="/login">
           Login
         </Button>
       </Toolbar>
