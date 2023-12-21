@@ -11,11 +11,13 @@ import { postDataType, sampleFormType } from "./types";
 import axios from "axios";
 import endpoint from "./endpoint";
 import Checkbox from "@mui/material/Checkbox";
+import { FormControlLabel } from "@mui/material";
 
 export default function FormDialog(props: {
   addFunc: (id: number, cont: postDataType) => void;
 }) {
   const [open, setOpen] = React.useState(false);
+  const [isAnswerTrue, setAnswer] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -67,7 +69,15 @@ export default function FormDialog(props: {
               variant="standard"
               {...register("problem")}
             />
-            <Checkbox {...register("answer")} />
+            <FormControlLabel
+              label={`the answer is ${isAnswerTrue}`}
+              control={
+                <Checkbox
+                  {...register("answer")}
+                  onChange={(event) => setAnswer(event.target.checked)}
+                />
+              }
+            ></FormControlLabel>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
